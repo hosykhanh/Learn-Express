@@ -2,6 +2,8 @@ const path = require("path");
 const express = require("express");
 const morgan = require("morgan");
 const exphbs = require("express-handlebars");
+const dotenv = require("dotenv").config();
+const { default: mongoose } = require("mongoose");
 const app = express();
 const port = 3001;
 
@@ -22,11 +24,22 @@ app.use(express.json());
 //Template engine
 app.engine("hbs", exphbs.engine({ extname: ".hbs" }));
 app.set("view engine", "hbs");
-app.set("views", path.join(__dirname, "resources/views"));
+app.set("views", path.join(__dirname, "resources", "views"));
 
 //Routes init
 route(app);
 
+mongoose
+  .connect(
+    `mongodb+srv://hosykhanh1108:${process.env.MONGGO_DB}@mongotest.wsohlpi.mongodb.net/?retryWrites=true&w=majority`
+  )
+  .then(() => {
+    console.log("connect success");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+  console.log(`App listening on port ${port}`);
 });
