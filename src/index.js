@@ -4,6 +4,8 @@ const morgan = require("morgan");
 const exphbs = require("express-handlebars");
 const dotenv = require("dotenv").config();
 const { default: mongoose } = require("mongoose");
+const methodOverride = require("method-override");
+
 const app = express();
 const port = 3001;
 
@@ -18,11 +20,21 @@ app.use(
 );
 app.use(express.json());
 
+app.use(methodOverride("_method"));
+
 // HTTP logger
 // app.use(morgan("combined"));
 
 //Template engine
-app.engine("hbs", exphbs.engine({ extname: ".hbs" }));
+app.engine(
+  "hbs",
+  exphbs.engine({
+    extname: ".hbs",
+    helpers: {
+      sum: (a, b) => a + b,
+    },
+  })
+);
 app.set("view engine", "hbs");
 app.set("views", path.join(__dirname, "resources", "views"));
 
