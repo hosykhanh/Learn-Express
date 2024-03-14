@@ -43,7 +43,7 @@ route(app);
 
 mongoose
   .connect(
-    `mongodb+srv://hosykhanh1108:${process.env.MONGGO_DB}@mongotest.wsohlpi.mongodb.net/?retryWrites=true&w=majority`
+    `mongodb+srv://hosykhanh1108:${process.env.MONGGO_DB}@mongotest.wsohlpi.mongodb.net/?retryWrites=true&w=majority&appName=mongotest`
   )
   .then(() => {
     console.log("connect success");
