@@ -1,7 +1,7 @@
 <div class="mt-4">
   <div>
     <h3>Khóa học đã xóa</h3>
-    <a href="/me/stored/courses">Danh sách khóa học</a>
+    <a href="/me/stored/courses" style="text-decoration: none;">Danh sách khóa học</a>
   </div>
   <table class="table mt-4">
     <thead>
@@ -9,7 +9,7 @@
         <th scope="col">#</th>
         <th scope="col">Tên khóa học</th>
         <th scope="col">Trình độ</th>
-        <th scope="col" colspan="2">Thời gian tạo</th>
+        <th scope="col" colspan="2">Thời gian xóa</th>
       </tr>
     </thead>
     <tbody>
@@ -18,7 +18,7 @@
           <th scope="row">{{sum @index 1}}</th>
           <td>{{this.name}}</td>
           <td>{{this.level}}</td>
-          <td>{{this.createdAt}}</td>
+          <td>{{this.deletedAt}}</td>
           <td>
             <a href="" class="btn btn-warning btn-restore" data-id="{{this._id}}">Khôi phục</a>
             <a

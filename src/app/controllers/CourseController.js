@@ -47,10 +47,12 @@ class CourseController {
 
   // [DELETE] /courses/:id
   delete(req, res, next) {
-    Course.delete({ _id: req.params.id })
+    const currentTime = new Date();
+    Course.findByIdAndUpdate(req.params.id, { deleted: true, deletedAt: currentTime })
       .then(() => res.redirect("back"))
       .catch(next);
   }
+
 
   // [DELETE] /courses/:id/force
   forceDelete(req, res, next){
@@ -59,12 +61,13 @@ class CourseController {
       .catch(next);
   }
 
-   // [PATCH] /courses/:id/restore
-   restore(req, res, next) {
-    Course.restore({ _id: req.params.id })
+  // [PATCH] /courses/:id/restore
+  restore(req, res, next) {
+    Course.findByIdAndUpdate(req.params.id, { deleted: false, deletedAt: null })
       .then(() => res.redirect("back"))
       .catch(next);
   }
+
 }
 
 module.exports = new CourseController();
