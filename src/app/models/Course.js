@@ -1,19 +1,31 @@
 const mongoose = require("mongoose");
-const slug = require("mongoose-slug-generator");
-mongoose.plugin(slug);
+const slugify = require("slugify");
+const mongooseDelete = require("mongoose-delete");
 
-const Course = new mongoose.Schema(
+const CourseSchema = new mongoose.Schema(
   {
-    name: { type: String, require: true },
+    name: { type: String, required: true },
     description: { type: String },
     image: { type: String },
-    videoId: { type: String, require: true },
+    videoId: { type: String, required: true },
     level: { type: String },
-    slug: { type: String, slug: "name", unique: true },
+    slug: { type: String, unique: true }
   },
   {
-    timestamps: true,
+    timestamps: true
   }
 );
 
-module.exports = mongoose.model("Course", Course);
+// Tạo slug từ trường 'name' trước khi lưu vào cơ sở dữ liệu
+CourseSchema.pre('save', function(next) {
+  this.slug = slugify(this.name, { lower: true });
+  next();
+});
+
+CourseSchema.plugin(mongooseDelete, {
+  deletedAt: true,
+  overrideMethods: "all",
+});
+
+module.exports = mongoose.model("Course", CourseSchema);
+
