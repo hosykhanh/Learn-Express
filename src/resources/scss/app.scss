@@ -4,15 +4,35 @@
   font-size: 15px;
   padding: auto;
 }
+
 h1 {
   color: $red-color;
 }
+
 .card-courses-item {
   margin-top: 15px;
 }
+
+.card-courses{
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid;
+  border-radius: 5px;
+  max-height: 500px;
+
+  img{
+    max-height: 230px;
+  }
+}
+
 .user-avatar {
   width: 28px;
   height: 28px;
   border-radius: 50%;
   margin-right: 4px;
+}
+
+.select-all-options{
+  width: 170px;
+  margin: 0 10px;
 }

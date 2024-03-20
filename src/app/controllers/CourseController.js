@@ -23,7 +23,7 @@ class CourseController {
     const course = new Course(req.body);
     course
       .save()
-      .then(() => res.redirect("/"))
+      .then(() => res.redirect("/me/stored/courses"))
       .catch((error) => {});
   }
 
@@ -66,6 +66,37 @@ class CourseController {
     Course.findByIdAndUpdate(req.params.id, { deleted: false, deletedAt: null })
       .then(() => res.redirect("back"))
       .catch(next);
+  }
+
+  // [POST] /courses/handle-form-action
+  handleFormAction(req, res, next) {
+    switch (req.body.action) {
+        case 'delete':
+            const currentTime = new Date();
+            Course.updateMany({ _id: { $in: req.body.courseIds } }, { deleted: true, deletedAt: currentTime })
+                .then(() => res.redirect("back"))
+                .catch(next);
+            break;
+        default:
+            res.json({ message: 'Action is invalid!' });
+    }
+  }
+
+  handleTrashForm(req, res, next) {
+    switch (req.body.action) {
+        case 'restore':
+            Course.updateMany({ _id: { $in: req.body.trashCourseIds } }, { deleted: false, deletedAt: null })
+                .then(() => res.redirect("back"))
+                .catch(next);
+            break;
+        case 'force-delete':
+            Course.deleteMany({ _id: { $in: req.body.trashCourseIds } })
+              .then(() => res.redirect("back"))
+              .catch(next);
+            break;
+        default:
+            res.json({ message: 'Action is invalid!' });
+    }
   }
 
 }

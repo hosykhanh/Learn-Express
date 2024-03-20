@@ -1,6 +1,5 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
-// const mongooseDelete = require("mongoose-delete");
 
 const CourseSchema = new mongoose.Schema(
   {
@@ -23,11 +22,6 @@ CourseSchema.pre('save', function(next) {
   this.slug = slugify(this.name, { lower: true });
   next();
 });
-
-// CourseSchema.plugin(mongooseDelete, {
-//   deletedAt: true,
-//   overrideMethods: "all",
-// });
 
 module.exports = mongoose.model("Course", CourseSchema);
 
