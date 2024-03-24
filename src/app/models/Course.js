@@ -17,6 +17,18 @@ const CourseSchema = new mongoose.Schema(
   }
 );
 
+//custom query helpers
+CourseSchema.query.sortable = function (req) {
+    if(req.query.hasOwnProperty('_sort')){
+      const inValidtype =  ['asc', 'desc'].includes(req.query.type);
+      return this.sort({
+        [req.query.column]: inValidtype ? req.query.type : 'desc',
+      });
+    }else {
+        return this;
+    }
+}
+
 // Tạo slug từ trường 'name' trước khi lưu vào cơ sở dữ liệu
 CourseSchema.pre('save', function(next) {
   this.slug = slugify(this.name, { lower: true });
