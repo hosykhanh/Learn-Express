@@ -1,0 +1,26 @@
+<form method="POST" action="/user/post-login" class="login">
+  <h2>Login</h2>
+  <div>
+      <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Email</label>
+        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="email" placeholder="abc@gmail.com">
+        <div id="emailHelp" class="form-text">We will never share your email with anyone else</div>
+      </div>
+      <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Password</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" name="password" placeholder="Password">
+      </div>
+      <div class="register">
+        Do not have an account?
+        <a href="/user/register">Register</a>
+      </div>
+      {{#if errorMessage}}
+          <div class="alert alert-danger" role="alert">
+            {{errorMessage}}
+          </div>
+      {{/if}}
+      <div class="button">
+        <button type="submit" class="btn btn-primary">Login</button>
+      </div>   
+  </div> 
+</form>

@@ -36,3 +36,23 @@ h1 {
   width: 170px;
   margin: 0 10px;
 }
+
+.login{
+  margin: 100px 30%;
+  padding: 30px;
+  border: 1px solid;
+  border-radius: 5px;
+
+  h2{
+    text-align: center;
+  }
+
+  .register{
+    text-align: right;
+  }
+
+  .button{
+    text-align: center;
+    margin-top: 30px;
+  }
+}

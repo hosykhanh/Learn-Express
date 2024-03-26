@@ -24,9 +24,11 @@
       </form>
       <ul class="navbar-nav mb-2 mb-lg-0" style="margin-left: auto;">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" href="/">Home</a>
         </li>
+        {{#if user}}
         <li class="nav-item dropdown">
+          
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -39,17 +41,22 @@
               alt=""
               class="user-avatar"
             />
-            Khanh Ho Sy
+              {{user.username}}
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/courses/create">Đăng khóa học</a></li>
-            <li><a class="dropdown-item" href="/me/stored/courses">Khóa học của
-                tôi</a></li>
+            <li><a class="dropdown-item" href="/me/stored/courses">Khóa học của tôi</a></li>
             <li><a class="dropdown-item" href="/me/stored/news">Bài viết của tôi</a></li>
             <li><hr class="dropdown-divider" /></li>
-            <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+            <li><a class="dropdown-item" href="/user/logout">Đăng xuất</a></li>
           </ul>
+          
         </li>
+        {{else}}
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/user/login">Đăng nhập / Đăng kí</a></li>
+          </li>
+        {{/if}}
       </ul>
     </div>
   </div>

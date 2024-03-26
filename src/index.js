@@ -5,6 +5,7 @@ const exphbs = require("express-handlebars");
 const dotenv = require("dotenv").config();
 const { default: mongoose } = require("mongoose");
 const methodOverride = require("method-override");
+const session = require('express-session');
 
 const SortMiddleware = require('./app/middlewares/SortMiddleware');
 
@@ -26,6 +27,18 @@ app.use(methodOverride("_method"));
 
 //custom middleware
 app.use(SortMiddleware);
+
+// Middleware để sử dụng session
+app.use(session({
+  secret: 'secret',
+  resave: false,
+  saveUninitialized: false
+}));
+
+app.use((req, res, next) => {
+  res.locals.user = req.session.user; // Truyền dữ liệu người dùng vào biến locals
+  next();
+});
 
 // HTTP logger
 // app.use(morgan("combined"));
