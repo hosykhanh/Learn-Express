@@ -5,7 +5,7 @@ class SiteController {
   // [GET] /
   async index(req, res, next) {
     try {
-      const courses = await Course.find({});
+      const courses = await Course.find({deleted: false});
       res.render("home", {
         courses: multipleMongooseToObject(courses),
       });
